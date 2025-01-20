@@ -21,14 +21,33 @@
 import type { Config } from 'jest'
 
 const config: Config = {
-  preset: 'ts-jest/presets/js-with-ts',
   detectOpenHandles: true,
   forceExit: true,
   fakeTimers: {
     enableGlobally: true,
   },
-  testMatch: ['**/?(*.)+(spec|test).ts?(x)', '!**/DAppConnector.test.ts', '!**/wallet*/**'],
+  testMatch: ['**/?(*.)+(spec|test).ts?(x)'],
+  transform: {
+    '^.+\\.(t|j)sx?$': '@swc/jest',
+  },
   transformIgnorePatterns: ['node_modules/(?!@walletconnect)'],
+  testEnvironment: 'node',
+  coverageDirectory: 'coverage',
+  collectCoverageFrom: [
+    'src/**/*.{js,ts}',
+    '!src/**/*.d.ts',
+    '!src/**/*.test.{js,ts}',
+    '!src/**/*.config.{js,ts}',
+  ],
+  coverageReporters: ['text-summary', 'html'],
+  coverageThreshold: {
+    global: {
+      branches: 50,
+      functions: 50,
+      lines: 50,
+      statements: 50,
+    },
+  },
 }
 
 export default config

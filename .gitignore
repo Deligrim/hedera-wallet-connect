@@ -2,3 +2,6 @@ node_modules
 dist
 *.sw[a-z]
 **/.idea
+.docusaurus**
+.DS_Store
+coverage
